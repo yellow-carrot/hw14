@@ -1,5 +1,5 @@
 from utils import *
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -13,7 +13,7 @@ def page_search_by_title(title):
 
 @app.route('/movie/<start_year>/to/<end_year>')
 def page_search_by_years(start_year, end_year):
-    return search_between_years(start_year, end_year)
+    return jsonify(search_between_years(start_year, end_year))
 
 
 @app.route('/movie/rating/<rating>')
@@ -26,12 +26,12 @@ def page_search_by_rating(rating):
         result = rating_adult()
     else:
         result = None
-    return result
+    return jsonify(result)
 
 
 @app.route('/genre/<genre>')
 def page_search_by_genre(genre):
-    return search_by_genre(genre)
+    return jsonify(search_by_genre(genre))
 
 
 if __name__ == '__main__':
